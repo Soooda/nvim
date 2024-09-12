@@ -4,6 +4,10 @@ return {
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		opts = {
+			icons = {
+				-- set icon mappings to true if you have a Nerd Font
+				mappings = vim.g.have_nerd_font,
+			},
 			win = {
 				border = "rounded",
 			padding = { 0, 0, 0, 0 }, -- extra window padding [top, right, bottom, left]

@@ -52,7 +52,9 @@ vim.o.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- vim.opt.listchars = { tab = '┆ ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 
 -- Set Neovim to use the system clipboard for all yank, delete, change, and put operations
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
