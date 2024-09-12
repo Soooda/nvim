@@ -1,3 +1,6 @@
+-- Set to true if a Nerd Font is installed and selected in the terminal
+vim.g.have_nerd_font = true
+
 -- Editing
 vim.opt.number = true
 vim.opt.cursorline = true
@@ -7,6 +10,9 @@ vim.opt.showbreak = "↳"
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5 -- Only when nowrap is active
 vim.opt.virtualedit = "block"
+
+-- Enable mouse for all modes
+vim.opt.mouse = 'a'
 
 -- UI
 vim.opt.winblend = 0 -- Floating window's opacity
@@ -44,8 +50,18 @@ vim.opt.termguicolors = true
 vim.o.splitright = true
 vim.o.splitbelow = true
 
+-- Sets how neovim will display certain whitespace characters in the editor.
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
 -- Set Neovim to use the system clipboard for all yank, delete, change, and put operations
-vim.opt.clipboard = "unnamedplus"
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
+vim.schedule(function()
+	vim.opt.clipboard = "unnamedplus"
+end)
+
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = 'split'
 
 -- Cache/Log File
 -- vim.opt.swapfile = false
@@ -56,7 +72,7 @@ vim.opt.viewdir = vim.fn.expand("$HOME/.cache/nvim/view")
 vim.lsp.set_log_level("off") -- Disable lsp.log
 
 -- Diagnostic
-vim.opt.updatetime = 300
+vim.opt.updatetime = 250
 vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float()]])
 vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
@@ -72,7 +88,7 @@ vim.diagnostic.config {
 -- Misc.
 vim.opt.history = 1000
 vim.opt.wildignorecase = true
-vim.opt.ttimeoutlen = 10
+vim.opt.timeoutlen = 300
 vim.opt.completeopt = "menuone,noselect"
 
 -- Restore cursor position when opening a file
@@ -95,4 +111,15 @@ vim.api.nvim_create_autocmd("BufRead", {
 			end,
 		})
 	end,
+})
+
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
