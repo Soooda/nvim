@@ -106,4 +106,24 @@ return {
 			},
 		},
 	},
+	-- Neovim plugin for yazi
+	{
+		"mikavilpas/yazi.nvim",
+		event = "VeryLazy",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{
+				"<F1>",
+				"<cmd>Yazi toggle<CR>",
+				desc = "Yazi File Manager",
+			},
+		},
+		opts = {
+			-- Open yazi instead of netrw for directories
+			open_for_directories = true,
+			keymaps = {
+			  show_help = '`',
+			},
+		},
+	},
 }
