@@ -29,7 +29,7 @@ return {
 				icons_enabled = true,
 				-- theme = 'dracula-nvim',
 				theme = 'catppuccin',
-				component_separators = '│',
+				component_separators = '┃',
 				section_separators = { left = "", right = "" },
 				ignore_focus = {},
 				globalstatus = true,
@@ -127,6 +127,22 @@ return {
 			open_for_directories = true,
 			keymaps = {
 			  show_help = '`',
+			},
+		},
+	},
+	-- Git integration for buffers
+	{
+		"lewis6991/gitsigns.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {
+			signs = {
+				-- Some useful symbols: {"▎", "" }
+				add          = { text = '+' },
+				change       = { text = '░' },
+				delete       = { text = '┃' },
+				topdelete    = { text = '┃' },
+				changedelete = { text = '▒' },
+				untracked    = { text = '┆' },
 			},
 		},
 	},
