@@ -18,7 +18,7 @@ vim.opt.cmdheight = 1
 vim.opt.laststatus = 3 -- Only one status line for all windows
 vim.opt.ruler = false -- Show Row, Col
 vim.opt.signcolumn = "auto"
-vim.opt.shortmess = "atToOCF"
+vim.opt.shortmess = "atToOCFI"
 
 -- Indent
 vim.opt.tabstop = 4
