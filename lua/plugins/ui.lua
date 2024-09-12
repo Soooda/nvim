@@ -10,11 +10,12 @@ return {
 			},
 			win = {
 				border = "rounded",
-			padding = { 0, 0, 0, 0 }, -- extra window padding [top, right, bottom, left]
+				width = { min = 20, max = 50 },
+				height = { min = 4, max = 25 },
+				padding = { 0, 0 }, -- extra window padding [top, right, bottom, left],
+				-- margin = { 1, 0, 0, 0.6 },
 			},
 			layout = {
-				width = { min = 20, max = 50 }, -- min and max width of the columns
-				height = { min = 4, max = 15 }, -- min and max height of the columns
 				spacing = 0,
 			},
 		},
