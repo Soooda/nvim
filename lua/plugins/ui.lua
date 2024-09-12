@@ -145,6 +145,39 @@ return {
 				changedelete = { text = '▒' },
 				untracked    = { text = '┆' },
 			},
+			-- on_attach = function(bufnr)
+			-- 	local gs = package.loaded.gitsigns
+			-- 	local opts = { buffer = bufnr }
+			-- 	vim.keymap.set({ "n", "v" }, "<leader>gs", gs.stage_hunk, opts)
+			-- 	vim.keymap.set("n", "<leader>gS", gs.stage_buffer, opts)
+			-- 	vim.keymap.set("n", "<leader>gl", gs.undo_stage_hunk, opts)
+			--
+			-- 	vim.keymap.set({ "n", "v" }, "<leader>gr", gs.reset_hunk, opts)
+			-- 	vim.keymap.set("n", "<leader>gR", gs.reset_buffer, opts)
+			--
+			-- 	vim.keymap.set("n", "<leader>gp", gs.preview_hunk, opts)
+			-- 	vim.keymap.set("n", "<leader>gb", function() gs.blame_line { full = true } end, opts)
+			--
+			-- 	vim.keymap.set("n", "<leader>gd", gs.diffthis, opts)
+			-- 	vim.keymap.set("n", "<leader>gD", function() gs.diffthis("~") end, opts)
+			--
+			-- 	opts = { expr = true, buffer = bufnr }
+			-- 	vim.keymap.set("n", "[[", function()
+			-- 		if vim.wo.diff then
+			-- 			return "[["
+			-- 		end
+			-- 		vim.schedule(function() gs.prev_hunk() end)
+			-- 		return "<Ignore>"
+			-- 	end, opts)
+			--
+			-- 	vim.keymap.set("n", "]]", function()
+			-- 		if vim.wo.diff then
+			-- 			return "]]"
+			-- 		end
+			-- 		vim.schedule(function() gs.next_hunk() end)
+			-- 		return "<Ignore>"
+			-- 	end, opts)
+			-- end,
 		},
 	},
 	-- Display indentation guides
