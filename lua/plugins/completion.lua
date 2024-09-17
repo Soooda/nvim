@@ -48,4 +48,10 @@ return {
 			{ "gO", "<Esc>:Sort!<CR>", mode = "v", silent = true, desc = "Reverse Sort" },
 		},
 	},
+	-- Surround Plugin
+	{
+		"kylechui/nvim-surround",
+		event = { "BufReadPost", "BufNewFile" },
+		config = true,
+	},
 }
