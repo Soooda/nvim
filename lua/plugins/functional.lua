@@ -18,4 +18,19 @@ return {
 			vim.keymap.set('n', 'k', '<Plug>(accelerated_jk_gk)', {})
 		end,
 	},
+	-- Colorizer
+	{
+		"norcalli/nvim-colorizer.lua",
+		lazy = true,
+		ft = {
+			"css",
+			"html",
+		},
+		opts = {
+			"*",
+			css = {
+				css = true,
+			},
+		},
+	},
 }
