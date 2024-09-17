@@ -266,4 +266,21 @@ return {
 			})
 		end,
 	},
+	-- Scroll Bar
+	{
+		"dstein64/nvim-scrollview",
+		event = { "BufReadPost", "BufNewFile" },
+		opts = {
+			excluded_filetypes = {
+				'neo-tree',
+			},
+			current_only = true,
+			base = 'right',
+			column = 1,
+			winblend = 50,
+			winblend_gui = 50,
+			signs_on_startup = {},
+			diagnostics_severities = {vim.diagnostic.severity.ERROR},
+		},
+	},
 }
