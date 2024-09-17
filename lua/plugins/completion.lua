@@ -24,4 +24,16 @@ return {
 		end,
 		-- END TODO
 	},
+	-- Switch between single-line and multiline forms of code
+	{
+		"Wansmer/treesj",
+		keys = {
+			{ "<leader>s", ":TSJToggle<CR>", silent = true, desc = "Single-line/Multiline forms" },
+		},
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		opts = {
+			use_default_keymaps = false,
+			max_join_length = 999,
+		},
+	},
 }
