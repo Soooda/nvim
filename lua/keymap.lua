@@ -7,7 +7,9 @@ vim.keymap.set("", "<Space>", "<Nop>")
 vim.keymap.set({ "n", "v" }, ";", ":")
 vim.keymap.set("", "<Tab>", "<Nop>") -- Will be handled in `plugins/completion.lua`
 vim.keymap.set("", "s", "<Nop>")
-vim.keymap.del('n', 'gc') -- Resolve the which-key checkhealth issue
+-- Disable built-in comment action and resolve the which-key checkhealth issue
+vim.keymap.del('n', 'gc')
+vim.keymap.del('n', 'gcc')
 
 -- Quit
 vim.keymap.set('n', 'Q', ':q<CR>', { silent = true, desc = "Quit" })
