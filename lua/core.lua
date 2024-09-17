@@ -93,6 +93,11 @@ vim.opt.wildignorecase = true
 vim.opt.timeoutlen = 300
 vim.opt.completeopt = "menuone,noselect"
 
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+
 -- Restore cursor position when opening a file
 -- https://github.com/neovim/neovim/issues/16339#issuecomment-1457394370
 vim.api.nvim_create_autocmd("BufRead", {
