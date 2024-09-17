@@ -226,4 +226,44 @@ return {
 			hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 		end,
 	},
+	-- Cursor Word Highlight
+	{
+		"RRethy/vim-illuminate",
+		event = { "BufReadPost", "BufNewFile" },
+		keys = { "_", "+" },
+		opts = {
+			providers = { "lsp", "treesitter", "regex" },
+			delay = 100,
+			filetypes_denylist = {
+				"TelescopePrompt",
+				"Trouble",
+				"neo-tree",
+				"neo-tree-popup",
+				"DressingInput",
+				"spectre_panel",
+				"Outline",
+				"checkhealth",
+			},
+			min_count_to_highlight = 2,
+		},
+		config = function(_, opts)
+			-- Set Highlight Groups
+			vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = true })
+			vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = true })
+			vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = true })
+
+			local illuminate = require("illuminate")
+			illuminate.configure(opts)
+
+			local function map(buffer)
+				vim.keymap.set("n", "+", function() illuminate.goto_next_reference(false) end, { buffer = buffer })
+				vim.keymap.set("n", "_", function() illuminate.goto_prev_reference(false) end, { buffer = buffer })
+			end
+
+			map(nil)
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function() map(vim.api.nvim_get_current_buf()) end,
+			})
+		end,
+	},
 }
