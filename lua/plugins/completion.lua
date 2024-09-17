@@ -51,7 +51,58 @@ return {
 	-- Surround Plugin
 	{
 		"kylechui/nvim-surround",
+		-- TODO: Add Which-key descriptions
 		event = { "BufReadPost", "BufNewFile" },
 		config = true,
+	},
+	-- Commenting
+	{
+		"echasnovski/mini.comment",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"JoosepAlviste/nvim-ts-context-commentstring",
+		},
+		keys = {
+			{ "<leader>c", nil, mode = { "n", "o", "x" }, desc = "Toggle Comment" },
+		},
+		opts = {
+			options = {
+				ignore_blank_line = true,
+			},
+			mappings = {
+				comment = "<leader>c",
+				comment_line = "<leader>c",
+				comment_visual = "<leader>c",
+				textobject = "<leader>c",
+			},
+			hooks = {
+				pre = function() require("ts_context_commentstring.internal").update_commentstring {} end,
+			},
+		},
+	},
+	-- Commenting
+	{
+		"echasnovski/mini.comment",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"JoosepAlviste/nvim-ts-context-commentstring",
+		},
+		keys = {
+			{ "<leader>c", nil, mode = { "n", "o", "x" }, desc = "Toggle Comment" },
+		},
+		opts = {
+			options = {
+				ignore_blank_line = true,
+			},
+			mappings = {
+				comment = "<leader>c",
+				comment_line = "<leader>c",
+				comment_visual = "<leader>c",
+				textobject = "<leader>c",
+			},
+			hooks = {
+				pre = function() require("ts_context_commentstring.internal").update_commentstring {} end,
+			},
+		},
 	},
 }
