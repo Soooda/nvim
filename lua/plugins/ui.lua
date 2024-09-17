@@ -11,7 +11,7 @@ return {
 			win = {
 				border = "rounded",
 				width = { min = 20, max = 50 },
-				height = { min = 4, max = 25 },
+				height = { min = 10, max = 25 },
 				padding = { 0, 0 }, -- extra window padding [top, right, bottom, left],
 				-- margin = { 1, 0, 0, 0.6 },
 			},
