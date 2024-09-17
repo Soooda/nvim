@@ -36,4 +36,16 @@ return {
 			max_join_length = 999,
 		},
 	},
+	-- Sorting plugin that supports line-wise and delimiter sorting
+	{
+		"sQVe/sort.nvim",
+		keys = {
+			{ "go", ":Sort<CR>", mode = "n", silent = true, desc = "Sort Line"
+			},
+			{ "go", "<Esc>:Sort<CR>", mode = "v", silent = true, desc = "Sort" },
+			{ "gO", ":Sort!<CR>", mode = "n", silent = true, desc = "Reverse Sort Line"
+			},
+			{ "gO", "<Esc>:Sort!<CR>", mode = "v", silent = true, desc = "Reverse Sort" },
+		},
+	},
 }
