@@ -283,4 +283,10 @@ return {
 			diagnostics_severities = {vim.diagnostic.severity.ERROR},
 		},
 	},
+	-- Icons
+	{
+		"echasnovski/mini.icons",
+		lazy = true,
+		config = true,
+	},
 }
