@@ -125,7 +125,7 @@ return {
 		},
 		opts = {
 			-- Open yazi instead of netrw for directories
-			open_for_directories = true,
+			open_for_directories = false,
 			keymaps = {
 			  show_help = '`',
 			},

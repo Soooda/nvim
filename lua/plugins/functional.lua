@@ -33,4 +33,15 @@ return {
 			},
 		},
 	},
+	-- Edit Directories like a File
+	{
+		"stevearc/oil.nvim",
+		opts = {
+			delete_to_trash = false,
+		},
+		dependencies = { "echasnovski/mini.icons" },
+		config = function()
+			require('oil').setup()
+		end
+	},
 }
