@@ -1,3 +1,39 @@
+local icons = {
+	Keyword = "󰌋",
+	Operator = "󰆕",
+
+	Text = "",
+	Value = "󰎠",
+	Constant = "󰏿",
+
+	Method = "",
+	Function = "󰊕",
+	Constructor = "",
+
+	Class = "",
+	Interface = "",
+	Module = "",
+
+	Variable = "",
+	Property = "󰜢",
+	Field = "󰜢",
+
+	Struct = "󰙅",
+	Enum = "",
+	EnumMember = "",
+
+	Snippet = "",
+
+	File = "",
+	Folder = "",
+
+	Reference = "󰈇",
+	Event = "",
+	Color = "",
+	Unit = "󰑭",
+	TypeParameter = "",
+}
+
 return {
 	-- Auto-pairing brackets
 	{
@@ -23,6 +59,120 @@ return {
 			}
 		end,
 		-- END TODO
+	},
+	-- Snippets
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			config = function()
+				vim.schedule(function() require("luasnip.loaders.from_vscode").lazy_load() end)
+			end,
+		},
+		lazy = true,
+		opts = {
+			history = true,
+			delete_check_events = "TextChanged",
+		},
+	},
+	-- Auto Completion
+	{
+		"hrsh7th/nvim-cmp",
+		event = { "InsertEnter", "CmdlineEnter" },
+		dependencies = {
+			{ "hrsh7th/cmp-nvim-lsp", lazy = true },
+			{ "hrsh7th/cmp-buffer", lazy = true },
+			{ "hrsh7th/cmp-cmdline", lazy = true },
+			{ "hrsh7th/cmp-path", lazy = true },
+
+			-- For luasnip users
+			{ "saadparwaiz1/cmp_luasnip", lazy = true },
+		},
+		config = function()
+			local cmp = require("cmp")
+			cmp.setup {
+				preselect = cmp.PreselectMode.None,
+				mapping = {
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-u>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
+					["<C-e>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+					["<M-u>"] = cmp.mapping.scroll_docs(-4),
+					["<M-e>"] = cmp.mapping.scroll_docs(4),
+					["<CR>"] = cmp.mapping.confirm { select = true },
+					["<S-CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace },
+				},
+				snippet = {
+					expand = function(args) require("luasnip").lsp_expand(args.body) end,
+				},
+				completion = {
+					completeopt = "menu,menuone,noinsert",
+				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
+				sources = {
+					{ name = "nvim_lsp" },
+					{ name = "path" },
+					{ name = "buffer" },
+					{ name = "luasnip" },
+				},
+				formatting = {
+					fields = { "kind", "abbr", "menu" },
+					format = function(entry, item)
+						item.kind = icons[item.kind] or item.kind
+
+						local truncated = vim.fn.strcharpart(item.abbr, 0, 30)
+						if truncated ~= item.abbr then
+							item.abbr = truncated .. "…"
+						end
+
+						return item
+					end,
+				},
+			}
+
+			local mapping = {
+				["<Tab>"] = cmp.mapping(function()
+					if cmp.visible() then
+						cmp.select_next_item()
+					else
+						cmp.complete()
+					end
+				end, { "c" }),
+				["<S-Tab>"] = cmp.mapping(function()
+					if cmp.visible() then
+						cmp.select_prev_item()
+					else
+						cmp.complete()
+					end
+				end, { "c" }),
+			}
+
+			-- Use buffer source for `/` and `?`
+			cmp.setup.cmdline({ "/", "?" }, {
+				mapping = mapping,
+				completion = {
+					completeopt = "menu,menuone,noselect",
+				},
+				sources = {
+					{ name = "buffer", keyword_length = 2 },
+				},
+			})
+
+			-- Use cmdline & path source for ':'
+			cmp.setup.cmdline(":", {
+				mapping = mapping,
+				completion = {
+					completeopt = "menu,menuone,noselect",
+				},
+				sources = cmp.config.sources({
+					{ name = "path", keyword_length = 2 },
+				}, {
+					{ name = "cmdline", keyword_length = 2 },
+				}),
+			})
+		end,
 	},
 	-- Copilot
 	{
