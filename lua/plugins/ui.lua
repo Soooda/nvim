@@ -185,18 +185,6 @@ return {
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		event = "VeryLazy",
-		opts = {
-			indent = {
-				char = '┊',
-				smart_indent_cap = true,
-			},
-			whitespace = {
-				remove_blankline_trail = true,
-			},
-			scope = {
-				enabled = true,
-			},
-		},
 		config = function()
 			local highlight = {
 				"RainbowRed",
@@ -221,7 +209,19 @@ return {
 			end)
 
 			vim.g.rainbow_delimiters = { highlight = highlight }
-			require("ibl").setup(opts)
+			require("ibl").setup {
+				scope = {
+					enabled = true,
+					highlight = highlight,
+				},
+				indent = {
+					char = '┊',
+					smart_indent_cap = true,
+				},
+				whitespace = {
+					remove_blankline_trail = true,
+				},
+			}
 
 			hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 		end,
