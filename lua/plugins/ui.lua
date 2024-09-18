@@ -283,6 +283,43 @@ return {
 			diagnostics_severities = {vim.diagnostic.severity.ERROR},
 		},
 	},
+	-- Improve the default `vim.ui` interfaces
+	{
+		"stevearc/dressing.nvim",
+		lazy = true,
+		opts = {
+			input = {
+				insert_only = false,
+				win_options = { winblend = 0 },
+				mappings = {
+					n = {
+						["<Esc>"] = "Close",
+						["<CR>"] = "Confirm",
+					},
+					i = {
+						["<CR>"] = "Confirm",
+						["<C-u>"] = "HistoryPrev",
+						["<C-e>"] = "HistoryNext",
+					},
+				},
+			},
+			select = {
+				get_config = function(opts)
+					if opts.kind == "codeaction" then
+						return {
+							backend = "telescope",
+							telescope = require("telescope.themes").get_cursor {
+								-- initial_mode = "normal",
+								layout_config = { height = 15 },
+							},
+						}
+					end
+
+					return { backend = "telescope", telescope = nil }
+				end,
+			},
+		},
+	},
 	-- Completely replaces the UI for messages, cmdline and the popupmenu
 	{
 		"folke/noice.nvim",
