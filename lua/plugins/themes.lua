@@ -2,9 +2,9 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
+        enabled = true,
         lazy = false,
         priority = 1000,
-        enabled = true,
         opts = {
             flavour = "macchiato",
             background = {
@@ -31,4 +31,13 @@ return {
 			vim.cmd.colorscheme("dracula")
 		end,
 	},
+	{
+		"xero/evangelion.nvim",
+		enabled = false,
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("evangelion")
+		end,
+	}
 }
