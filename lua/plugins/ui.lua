@@ -639,4 +639,62 @@ return {
 		},
 		config = function() require("telescope").load_extension("smart_open") end,
 	},
+	-- Find and replace with dark power
+	{
+		"nvim-pack/nvim-spectre",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim", lazy = true },
+		},
+		keys = {
+			{ "<leader>f", ":lua require('spectre').open()<CR>", mode = "n", silent = true },
+			{ "<leader>f", ":lua require('spectre').open_visual()<CR>", mode = "v", silent = true },
+		},
+		opts = {
+			highlight = {
+				search = "DiffDelete",
+				replace = "DiffAdd",
+			},
+			mapping = {
+				["toggle_line"] = {
+					map = "<Tab>",
+					cmd = ":lua require('spectre').toggle_line()<CR>",
+				},
+				["enter_file"] = {
+					map = "<CR>",
+					cmd = ":lua require('spectre.actions').select_entry()<CR>",
+				},
+				["send_to_qf"] = { map = "<Nop>" },
+				["replace_cmd"] = { map = "<Nop>" },
+				["show_option_menu"] = { map = "<Nop>" },
+				["run_current_replace"] = {
+					map = "r",
+					cmd = ":lua require('spectre.actions').run_current_replace()<CR>",
+				},
+				["run_replace"] = {
+					map = "R",
+					cmd = ":lua require('spectre.actions').run_replace()<CR>",
+				},
+				["change_view_mode"] = {
+					map = "tv",
+					cmd = ":lua require('spectre').change_view()<CR>",
+				},
+				["change_replace_sed"] = { map = "<Nop>" },
+				["change_replace_oxi"] = { map = "<Nop>" },
+				["toggle_live_update"] = { map = "<Nop>" },
+				["toggle_ignore_case"] = {
+					map = "tc",
+					cmd = ":lua require('spectre').change_options('ignore-case')<CR>",
+				},
+				["toggle_ignore_hidden"] = {
+					map = "th",
+					cmd = ":lua require('spectre').change_options('hidden')<CR>",
+				},
+				["resume_last_search"] = {
+					map = "l",
+					cmd = ":lua require('spectre').resume_last_search()<CR>",
+				},
+			},
+			is_insert_mode = true,
+		},
+	},
 }
