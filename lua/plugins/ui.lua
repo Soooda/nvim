@@ -409,4 +409,14 @@ return {
 			},
 		},
 	},
+	-- Toggle Terminal
+	{
+		"akinsho/toggleterm.nvim",
+		event = "VeryLazy",
+		opts = {
+			open_mapping = '<F2>',
+			direction = 'float',
+			shade_terminals = true,
+		},
+	},
 }
