@@ -469,4 +469,174 @@ return {
 			},
 		},
 	},
+	-- Fuzz Finder
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim", lazy = true },
+			{ "nvim-telescope/telescope-fzy-native.nvim", lazy = true },
+		},
+		keys = function()
+			local extr_args = {
+				"--hidden", -- Search hidden files that are prefixed with `.`
+				"--no-ignore", -- Don’t respect .gitignore
+				"-g",
+				"!.git/",
+				"-g",
+				"!node_modules/",
+				"-g",
+				"!.idea/",
+				"-g",
+				"!pnpm-lock.yaml",
+				"-g",
+				"!package-lock.json",
+				"-g",
+				"!go.sum",
+				"-g",
+				"!lazy-lock.json",
+				"-g",
+				"!.zsh_history",
+			}
+
+			return {
+				{ ",a", function() require("telescope.builtin").buffers() end },
+				{ "<leader>;", function() require("telescope.builtin").command_history() end },
+
+				-- Search
+				{ "<leader>e", function() require("telescope.builtin").find_files() end },
+				{
+					"<leader>E",
+					function()
+						require("telescope.builtin").find_files {
+							find_command = { "rg", "--color=never", "--smart-case", "--files", unpack(extr_args) },
+						}
+					end,
+				},
+				{ "<leader>/", function() require("telescope.builtin").live_grep() end },
+				{ "<leader>?", function() require("telescope.builtin").live_grep { additional_args = extr_args } end },
+
+				-- LSP
+				{
+					"<leader>l",
+					function() require("telescope.builtin").lsp_references { initial_mode = "normal", reuse_win = true } end,
+				},
+				{
+					"<leader>b",
+					function() require("telescope.builtin").lsp_definitions { initial_mode = "normal", reuse_win = true } end,
+				},
+				{
+					"<leader>m",
+					function() require("telescope.builtin").lsp_type_definitions { initial_mode = "normal", reuse_win = true } end,
+				},
+				{
+					"<leader>i",
+					function() require("telescope.builtin").lsp_implementations { initial_mode = "normal", reuse_win = true } end,
+				},
+				{ "<leader>u", function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end },
+			}
+		end,
+		config = function()
+			local telescope = require("telescope")
+			local actions = require("telescope.actions")
+			local trouble = require("trouble.sources.telescope")
+
+			telescope.setup {
+				defaults = {
+					scroll_strategy = "limit",
+					prompt_prefix = " ",
+					selection_caret = " ",
+					multi_icon = " ",
+					mappings = {
+						-- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/mappings.lua#L133
+						i = {
+							["<C-n>"] = false, -- disable default keybinding
+
+							["<C-u>"] = actions.cycle_history_prev,
+							["<C-e>"] = actions.cycle_history_next,
+							["<M-u>"] = actions.preview_scrolling_up,
+							["<M-e>"] = actions.preview_scrolling_down,
+							["<C-s>"] = actions.select_vertical,
+							["<C-h>"] = actions.select_horizontal,
+							["<C-t>"] = actions.select_tab,
+							["<C-q>"] = trouble.open,
+						},
+						n = {
+							["k"] = false, -- disable default keybinding
+							["<S-Tab>"] = false, -- disable default keybinding
+
+							["<Tab>"] = actions.toggle_selection,
+							["<BS>"] = actions.delete_buffer,
+							["u"] = actions.move_selection_previous,
+							["e"] = actions.move_selection_next,
+							["U"] = function(prompt_bufnr) require("telescope.actions.set").shift_selection(prompt_bufnr, -5) end,
+							["E"] = function(prompt_bufnr) require("telescope.actions.set").shift_selection(prompt_bufnr, 5) end,
+							["<C-u>"] = actions.cycle_history_prev,
+							["<C-e>"] = actions.cycle_history_next,
+							["<M-u>"] = actions.preview_scrolling_up,
+							["<M-e>"] = actions.preview_scrolling_down,
+							["s"] = actions.select_vertical,
+							["h"] = actions.select_horizontal,
+							["t"] = actions.select_tab,
+							["<C-q>"] = trouble.open,
+						},
+					},
+					buffer_previewer_maker = function(filepath, bufnr, opts)
+						require("plenary.job")
+							:new({
+								command = "file",
+								args = { "-b", "--mime", filepath },
+								on_exit = function(j)
+									if j:result()[1]:find("charset=binary", 1, true) then
+										vim.schedule(function() vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" }) end)
+									else
+										require("telescope.previewers").buffer_previewer_maker(filepath, bufnr, opts)
+									end
+								end,
+							})
+							:sync()
+					end,
+				},
+				pickers = {
+					find_files = { previewer = false },
+					live_grep = { theme = "ivy" },
+
+					lsp_references = { theme = "ivy" },
+					lsp_definitions = { theme = "ivy" },
+					lsp_type_definitions = { theme = "ivy" },
+					lsp_implementations = { theme = "ivy" },
+					lsp_dynamic_workspace_symbols = {
+						sorter = telescope.extensions.fzy_native.native_fzy_sorter(),
+					},
+				},
+				extensions = {
+					fzy_native = {
+						override_generic_sorter = true,
+						override_file_sorter = true,
+					},
+				},
+			}
+
+			telescope.load_extension("fzy_native")
+			telescope.load_extension("noice")
+		end,
+	},
+	-- Telescope smart-open plugin
+	{
+		"danielfalk/smart-open.nvim",
+		dependencies = {
+			{ "kkharji/sqlite.lua", lazy = true },
+			{ "nvim-telescope/telescope-fzy-native.nvim", lazy = true },
+		},
+		keys = {
+			{
+				"<leader><leader>",
+				function()
+					require("telescope").extensions.smart_open.smart_open(
+						require("telescope.themes").get_dropdown { cwd_only = true, previewer = false }
+					)
+				end,
+			},
+		},
+		config = function() require("telescope").load_extension("smart_open") end,
+	},
 }
