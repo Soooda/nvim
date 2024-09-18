@@ -283,12 +283,6 @@ return {
 			diagnostics_severities = {vim.diagnostic.severity.ERROR},
 		},
 	},
-	-- Icons
-	{
-		"echasnovski/mini.icons",
-		lazy = true,
-		config = true,
-	},
 	-- Completely replaces the UI for messages, cmdline and the popupmenu
 	{
 		"folke/noice.nvim",
