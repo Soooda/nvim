@@ -137,12 +137,12 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
 			signs = {
-				-- Some useful symbols: {"▎", "", "┃" }
-				add          = { text = '▓' },
-				change       = { text = '░' },
-				delete       = { text = '▒' },
-				topdelete    = { text = '▒' },
-				changedelete = { text = '░' },
+				-- Some useful symbols: {"▎", "", "┃", "▓", "░" }
+				add          = { text = '+' },
+				change       = { text = '▎' },
+				delete       = { text = '-' },
+				topdelete    = { text = '-' },
+				changedelete = { text = '▎' },
 				untracked    = { text = '┆' },
 			},
 			-- on_attach = function(bufnr)
@@ -279,9 +279,12 @@ return {
 			column = 1,
 			winblend = 0,
 			winblend_gui = 0,
-			signs_on_startup = { "all" },
+			signs_on_startup = {},
 			diagnostics_severities = {vim.diagnostic.severity.ERROR},
 		},
+		config = function()
+			require('scrollview.contrib.gitsigns').setup()
+		end,
 	},
 	-- Improve the default `vim.ui` interfaces
 	{
@@ -331,7 +334,7 @@ return {
 		opts = {
 			cmdline = {
 				format = {
-					cmdline = { icon = ">" },
+					-- cmdline = { icon = ">" },
 				},
 			},
 			lsp = {
