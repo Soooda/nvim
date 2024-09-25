@@ -1,37 +1,37 @@
 local icons = {
-	Keyword = "󰌋",
-	Operator = "󰆕",
+	Keyword = "󰌋 ",
+	Operator = "󰆕 ",
 
-	Text = "",
-	Value = "󰎠",
-	Constant = "󰏿",
+	Text = " ",
+	Value = "󰎠 ",
+	Constant = "󰏿 ",
 
-	Method = "",
-	Function = "󰊕",
-	Constructor = "",
+	Method = " ",
+	Function = "󰊕 ",
+	Constructor = " ",
 
-	Class = "",
-	Interface = "",
-	Module = "",
+	Class = " ",
+	Interface = " ",
+	Module = " ",
 
-	Variable = "",
-	Property = "󰜢",
-	Field = "󰜢",
+	Variable = " ",
+	Property = "󰜢 ",
+	Field = "󰜢 ",
 
-	Struct = "󰙅",
-	Enum = "",
-	EnumMember = "",
+	Struct = "󰙅 ",
+	Enum = " ",
+	EnumMember = " ",
 
-	Snippet = "",
+	Snippet = " ",
 
-	File = "",
-	Folder = "",
+	File = " ",
+	Folder = " ",
 
-	Reference = "󰈇",
-	Event = "",
-	Color = "",
-	Unit = "󰑭",
-	TypeParameter = "",
+	Reference = "󰈇 ",
+	Event = " ",
+	Color = " ",
+	Unit = "󰑭 ",
+	TypeParameter = " ",
 }
 
 return {
