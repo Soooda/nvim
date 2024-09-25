@@ -3,6 +3,7 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
+		preset = "helix",
 		opts = {
 			icons = {
 				-- set icon mappings to true if you have a Nerd Font
@@ -10,16 +11,8 @@ return {
 			},
 			win = {
 				border = "rounded",
-				width = { min = 20, max = 50 },
-				height = { min = 10, max = 25 },
-				padding = { 0, 0 }, -- extra window padding [top, right, bottom, left],
-				-- margin = { 1, 0, 0, 0.6 },
-			},
-			layout = {
-				spacing = 0,
 			},
 		},
-		keys = {},
 	},
 	-- Status line
 	{
