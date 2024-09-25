@@ -132,10 +132,10 @@ return {
 			signs = {
 				-- Some useful symbols: {"▎", "", "┃", "▓", "░" }
 				add          = { text = '+' },
-				change       = { text = '▎' },
+				change       = { text = '┃' },
 				delete       = { text = '-' },
 				topdelete    = { text = '-' },
-				changedelete = { text = '▎' },
+				changedelete = { text = '┃' },
 				untracked    = { text = '┆' },
 			},
 			-- on_attach = function(bufnr)
