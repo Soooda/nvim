@@ -31,3 +31,4 @@ require("lazy").setup("plugins", {
 	},
 })
 
+require("editconfig")
